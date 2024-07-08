@@ -26,10 +26,11 @@
        /**********Partie3****/
         $(".page-link").on('click', (evt) => {
             //Étape1:Obtenir la valeur du data-page-id de l'élément sur lequel l'utilisateur a cliqué.
-                    
+            var pageId = $(evt.currentTarget).data("page-id");
             // Étape2: Obtenir l'élément qui contient l'information du SeletectedPageIndex
+            let selectedPageIndexElement = $("#selectedPageIndex");
             //Étape3: Modifier la valeur de l'élément à la valeur du data-page-id cliqué 
-                   
+            selectedPageIndexElement.val(pageId);
 
                     $('#filterForm').submit();
 
@@ -91,7 +92,7 @@
                     <option selected="selected" value="">@Locals["Please select"]</option>
                 </select>
 
-                <input asp-for="SelectedPageIndex" type="hidden" class="form-control" readonly />
+                <input id="selectedPageIndex" asp-for="SelectedPageIndex" type="hidden" class="form-control" readonly />
 
 
                 <br />
@@ -203,7 +204,7 @@
         <ul class="pagination">
             @if(Model.Items.HasPreviousPage)
             {
-                <li class="page-item"><span data-page-id="0" class="page-link">@Locals["Previous"]</span></li>
+                <li class="page-item"><span data-page-id="@(Model.SelectedPageIndex - 1)" class="page-link">@Locals["Previous"]</span></li>
             }
                 
             @for(int i = 1; i <= Model.Items.TotalPages; i++)
@@ -220,7 +221,7 @@
             
             @if (Model.Items.HasNextPage)
             {
-                <li class="page-item"><span class="page-link" data-page-id="1">@Locals["Next"]</span></li>
+                <li class="page-item"><span class="page-link" data-page-id="@(Model.SelectedPageIndex + 1)">@Locals["Next"]</span></li>
             }
         </ul>
     </nav>
