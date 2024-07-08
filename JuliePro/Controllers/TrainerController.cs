@@ -170,5 +170,17 @@ namespace JuliePro.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<JsonResult> AddToFavorites(int? id)
+        {
+            Trainer? trainer = await _service.GetByIdAsync(id.Value);
+            if (trainer != null)
+            {
+                trainer.Active = !trainer.Active;
+                await _service.EditAsync(trainer);
+                return new JsonResult(trainer.Active);
+            }
+            throw new Exception("Could not find trainer with id: " + id);
+        }
+
     }
 }
