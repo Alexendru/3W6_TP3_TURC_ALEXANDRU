@@ -24,7 +24,7 @@ namespace JuliePro.Services.impl
 
         public async Task EditAsync(Trainer model, IFormCollection form)
         {
-            var old = await _dbContext.Trainers.Where(x=>x.Id == model.Id).Select(x=>x.Photo).FirstOrDefaultAsync();
+            var old = await _dbContext.Trainers.Where(x => x.Id == model.Id).Select(x => x.Photo).FirstOrDefaultAsync();
             model.Photo = await fileManager.UploadImage(form, true, old);
             await this.EditAsync(model);
         }
@@ -41,7 +41,8 @@ namespace JuliePro.Services.impl
             result.Items = await this._dbContext.Trainers
                 .Where(i => filter.SearchNameText == null || (i.FirstName + " " + i.LastName).ToLower().Contains(filter.SearchNameText.ToLower()))
                 /**Ajouter des Where pour les critères Descipline et Genre**/
-              
+                .Where(i => filter.SelectedGender == null || filter.SelectedGender == Genre.Neutral || i.Genre == filter.SelectedGender)
+                .Where(i => filter.SelectedDisciplineId == null || i.Discipline_Id == filter.SelectedDisciplineId)
                 .ToPaginatedAsync(result.SelectedPageIndex, result.SelectedPageSize);
 
             result.AvailablePageSizes = new SelectList(new List<int>() { 9, 12, 18, 21 });
