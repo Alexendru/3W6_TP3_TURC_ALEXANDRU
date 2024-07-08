@@ -7,7 +7,9 @@
 @section Scripts
     {
     <script>
-        /**********Partie2************ */
+        
+        /**********Partie2************ */ // Désactiver pour partie 4
+        /*
         function mouseEnter() {
             //Enlève la class "unshow"à l'élément aside
             $(this).find("aside").removeClass("unshow");
@@ -22,6 +24,7 @@
         }
 
         $(".card").hover(mouseEnter, mouseLeave);
+                * /
 
        /**********Partie3****/
         $(".page-link").on('click', (evt) => {
@@ -115,6 +118,9 @@
 
                 <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName), @Html.DisplayFor(modelItem => item.Discipline.Name)</h5>
+                    <button class="btn btn-outline-primary addToFavorites" data-trainer-id="@item.Id">
+                        Marquer comme favoris
+                    </button>
                     <aside class="">
                         <table class="table ">
                             <tr>
@@ -177,7 +183,6 @@
                                 <td class="col-sm-10">
                                     @Html.DisplayFor(model => item.Discipline.Description)
                                 </td>
-
                             </tr>
                             <tr>
                                 <td colspan="2">
