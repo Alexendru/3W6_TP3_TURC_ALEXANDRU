@@ -33,12 +33,11 @@ namespace JuliePro.Controllers
             return View(trainers);
         }
 
-
         public async Task<IActionResult> Filter(TrainerSearchViewModelFilter filter)
         {
             var trainers = await this._service.GetAllAsync(filter);
 
-            return View(nameof(Index)); 
+            return View("Index", trainers); 
         }
 
 
