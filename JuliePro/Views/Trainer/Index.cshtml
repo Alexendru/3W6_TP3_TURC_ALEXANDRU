@@ -38,6 +38,25 @@
                     $('#filterForm').submit();
 
                 })
+        /**********Partie4****/
+        $(".addToFavorites").on('click', (evt) => {
+            var trainerId = $(evt.currentTarget).data("trainer-id");
+            $.ajax({
+                url: 'Trainer/AddToFavorites/' + trainerId,
+                type: 'GET',
+                success: function (result) {
+                    if (!result) {
+                        $(evt.currentTarget).html("favoris");
+                    } else {
+
+                        $(evt.currentTarget).html("Marquer comme favoris");
+                    }
+                },
+                error: function () {
+                    alert("An error occurred trying to favorite the trainer.");
+                }
+            });
+        });
 
 
 
@@ -118,9 +137,14 @@
 
                 <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName), @Html.DisplayFor(modelItem => item.Discipline.Name)</h5>
-                    <button class="btn btn-outline-primary addToFavorites" data-trainer-id="@item.Id">
-                        Marquer comme favoris
-                    </button>
+                    @if (item.Active)
+                    {
+                        <button class="btn btn-outline-primary addToFavorites" data-trainer-id="@item.Id">Marquer comme favoris</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-outline-primary addToFavorites" data-trainer-id="@item.Id">Favoris</button>
+                    }
                     <aside class="">
                         <table class="table ">
                             <tr>

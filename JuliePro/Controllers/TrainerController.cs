@@ -176,7 +176,7 @@ namespace JuliePro.Controllers
             if (trainer != null)
             {
                 trainer.Active = !trainer.Active;
-                await _service.EditAsync(trainer, HttpContext.Request.Form);
+                await _service.EditAsync(trainer);
                 return new JsonResult(trainer.Active);
             }
             throw new Exception("Could not find trainer with id: " + id);
