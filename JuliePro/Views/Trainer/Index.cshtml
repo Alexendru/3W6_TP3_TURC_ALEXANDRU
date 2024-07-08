@@ -9,14 +9,16 @@
     <script>
         /**********Partie2************ */
         function mouseEnter() {
-            //Enlever la class "unshow"à l'élément aside
-            // ajouter la class "show" à l'élément aside
-            
+            //Enlève la class "unshow"à l'élément aside
+            $(this).find("aside").removeClass("unshow");
+            // ajoute la class "show" à l'élément aside
+            $(this).find("aside").addClass("show");
         }
-        function mouseLeave() {<
-             //Enlever la class "show"à l'élément aside
-            // ajouter la class "unshow" à l'élément aside
-        
+        function mouseLeave() {
+            //Enlève la class "show" à l'élément aside
+            $(this).find("aside").removeClass("show");
+            // ajoute la class "unshow" à l'élément aside
+            $(this).find("aside").addClass("unshow");
         }
 
         $(".card").hover(mouseEnter, mouseLeave);
